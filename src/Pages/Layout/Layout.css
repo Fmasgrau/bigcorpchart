@@ -1,0 +1,70 @@
+.container{
+    min-height: 100%;
+    height: 100vh;
+    width: 100vw;
+    max-width: 100vw;
+    display: grid;
+    grid-template-rows: 0.2fr auto 0.2fr;
+    grid-template-areas: "header" "main" "footer";
+    
+}
+
+/* HEADER STYLES */
+
+.header{
+    background-color: #2D104D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: header;
+     
+}
+
+header hr{
+    width: 20px;
+}
+
+/* MAIN STYLES */
+.main{
+    background-color: white;
+    grid-area: main;
+    display: grid;
+    grid-template-rows: 40vh auto;
+}
+
+.jumbotron{
+    background-color: #2D104D;
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.jumbotron h1{
+    font-size: 2.8rem;
+}
+
+.jumbotron h3{
+    color: #8C7DB2;
+    margin-top: 4%;
+}
+
+.corpchart{
+    background-color: white;
+    min-height: 600px;
+    display: flex;
+    justify-content: center;
+    
+}
+
+
+
+
+/* FOOTER STYLES */
+
+.footer{
+    background-color: #2D104D;
+    grid-area:footer;
+    height: 20vh;
+}

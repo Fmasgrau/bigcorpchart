@@ -1,0 +1,2 @@
+export const DISPLAYROWS = 'DISPLAYROWS'
+export const ROWINDEX = 'ROWINDEX'

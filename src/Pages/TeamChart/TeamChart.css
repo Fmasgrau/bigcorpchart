@@ -1,0 +1,10 @@
+.container-chart{
+    width: 80vw;
+    max-width: 80vw;
+    /* background-color: rgba(125,125,125, 0.2); */
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    min-height: 100vh;
+    height: max-content;
+}
