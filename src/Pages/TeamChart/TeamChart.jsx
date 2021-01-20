@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import Levels from '../../Components/TeamChart/Levels'
 import { getEmployeesByLimits , getEmployeesById } from '../../Services/ChartApi'
+import Swal from 'sweetalert2'
+
 
 
 export default function TeamChart() {
@@ -64,7 +66,19 @@ useEffect(() => {
     let id = state.display.display.managerId
     if(state.display.display.status === true){
         getEmployeesById(id).then(res => {
-            setDataExtra(res.data)
+            if(res.data.length > 0){
+                setDataExtra(res.data)
+            }
+            else{
+                setDataExtra(res.data)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'No more employees!'
+                  })
+            }
+            
+            
         })
     }
 
@@ -121,16 +135,16 @@ useEffect(() => {
             if (levels.length === undefined) {
 
                 data.push(<div className="row" id={index} key={index}>
-                    <Levels employee={levels} id={index}></Levels>
+                    <Levels employee={levels} id={index} key={index}></Levels>
                 </div>)
             }
             else {
                 let row = []
 
-                row.push(<div className="row" id={index}>
+                row.push(<div className="row" id={index} key={index}>
 
                     {levels.map((items, index) => {
-                        return <Levels employee={items} key={index} id={index}></Levels>
+                        return <Levels employee={items} key={items.id} id={index}></Levels>
                     })}
                 </div>)
                 data.push(row)

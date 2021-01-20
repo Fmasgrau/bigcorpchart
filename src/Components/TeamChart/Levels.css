@@ -19,7 +19,7 @@
 
 
 .card{
-    border: solid 3px rgb(125,125,125);
+    border: solid 3px #2D104D;
     border-radius: 2%;
     background-color: white;
     width: 200px;
@@ -28,7 +28,7 @@
 }
 
 .selected{
-    background-color: #2D104D20;
+    background-color: #8C7DB280;
 }
 
 .card-container{

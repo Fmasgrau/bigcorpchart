@@ -1,7 +1,7 @@
 import { rowIndex } from '../Actions/DisplayAction'
 import { DISPLAYROWS , ROWINDEX} from '../Actions/Types'
 
-const initialState = {display : "", rowIndex : []}
+const initialState = {display : "", rowIndex : [{row: "0", col: "0", status: true}]}
 
 export const display = (state = initialState, action) => {
     switch (action.type){
@@ -15,9 +15,7 @@ export const display = (state = initialState, action) => {
             let val = false
 
             for (let i = 0; i < len; i++){
-                //console.log(typeof parseInt(data[i].row), data[i].row, "payload", typeof action.payload.row, action.payload.row)
                 if(data[i].row === action.payload.row){
-                    // console.log("entro acá")
                     data[i].col = action.payload.col
                     data[i].status = action.payload.status
                     val = true

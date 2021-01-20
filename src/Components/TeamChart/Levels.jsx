@@ -15,7 +15,7 @@ export default function Levels({ employee, id }) {
 
 
 /**
- * this useEffect is used for fill the squares when it has been selected.
+ * this useEffect is used for fill the squares when it has been selected and show + or -.
  */
 
     useEffect(() => {
