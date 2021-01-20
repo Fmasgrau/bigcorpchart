@@ -8,36 +8,18 @@ export default function Levels({ employee, id }) {
 
 
     const [selected, setSelected] = useState(false)
-    const [firstRow, setFirstRow] = useState()
     const images = [boy, boy1, girl, girl1]
     const indexRef = useRef()
-
     const dispatch = useDispatch()
     const state = useSelector(state => state)
 
 
-
-    // useEffect(() => {
-    // let rowIndex_1 = state.display.rowIndex
-    // let len = state.display.rowIndex.length
-    // for (let i = 0; i < len; i++) {
-    //     if (rowIndex_1[i].row === indexRef.current.parentNode.id && rowIndex_1[i].col === indexRef.current.id && rowIndex_1[i].status === true) {
-    //         console.log("Se pone -")
-    //         setSelected(true)
-    //     }
-    //     else {
-    //         console.log("Se pone +")
-    //         setSelected(false)
-    //     }
-    // }
-
-
-    // }, [state.display.rowIndex])
-
+/**
+ * this useEffect is used for fill the squares when it has been selected.
+ */
 
     useEffect(() => {
         setSelected(false)
-        console.log(state.display.rowIndex.length)
         if (state.display.rowIndex.length > 0) {
             state.display.rowIndex.map(res => {
                 if (res.row === indexRef.current.parentNode.id && res.col === indexRef.current.id) {
@@ -55,7 +37,10 @@ export default function Levels({ employee, id }) {
 
 
     
-
+/**
+ * 
+ *  This function is used to display the subordinates for the person selected. 
+ */
     const _showMore = (e) => {
         e.preventDefault()
 

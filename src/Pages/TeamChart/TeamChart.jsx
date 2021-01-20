@@ -1,29 +1,32 @@
-import axios from 'axios'
 import React, { useEffect, useState, useRef } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Levels from '../../Components/TeamChart/Levels'
-import data from '../../Dummy/Data/employees.json'
+import { getEmployeesByLimits , getEmployeesById } from '../../Services/ChartApi'
 
 
 export default function TeamChart() {
 
     const state = useSelector(state => state)
-    const dispatch = useDispatch()
-
-
     const [rowData, setRowData] = useState([])
     const [dataExtra, setDataExtra] = useState([])
+
+
+    /**
+     * First render. I'm using this method because the all employees endpoint is not working.
+     * On that you request for all employees (because in that case , are just 20)
+     * and the manipulate the data to obtain the top level and then display the people who is below them,
+     * just the next level only
+     */
 
     useEffect(() => {
         let data
         let lista = []
         let managerId
-        axios.get(`https://2jdg5klzl0.execute-api.us-west-1.amazonaws.com/default/EmployeesChart-Api?offset=${0}&limit=${20}`).then(res => {
+        getEmployeesByLimits(0,20).then(res => {
             data = res.data
         }).then(() => {
             data.map(res => {
                 if (res.manager === 0) {
-                    console.log("res manager", res.manager, "data",res)
                     lista.push(res)
                     managerId = res.id
                 }
@@ -32,9 +35,7 @@ export default function TeamChart() {
 
             let auxList = []
             data.map(res => {
-                console.log("res.manager", res.manager, "res.id", res.id)
                 if (res.manager === managerId) {
-                    console.log("pushea", res)
                     auxList.push(res)
                 }
             })
@@ -54,13 +55,15 @@ export default function TeamChart() {
 
 
 
-
+/**
+ * This useeffect is fired when someone wants to see more in one resource, so this will search the subordinates for the id selected.
+ */
 
 useEffect(() => {
 
     let id = state.display.display.managerId
     if(state.display.display.status === true){
-        axios.get(`https://2jdg5klzl0.execute-api.us-west-1.amazonaws.com/default/EmployeesChart-Api?manager=${id}`).then(res => {
+        getEmployeesById(id).then(res => {
             setDataExtra(res.data)
         })
     }
@@ -69,15 +72,16 @@ useEffect(() => {
 }, [state.display.display])
 
 
+
+/**
+ * This useEffect is used for manage the data when a user want to see more or less levels.
+ */
     useEffect(() => {
 
 
-        let len = rowData.length
         let data = [...rowData]
-        let indexRow = state.display.rowIndex
         let cardSelected = state.display.display
 
-        console.log("card", cardSelected)
 
         if (cardSelected !== "") {
 
@@ -86,7 +90,6 @@ useEffect(() => {
                 data = [...data, dataExtra]
             } else {
 
-                console.log("row", cardSelected.row, "col", cardSelected.col)
                 if (cardSelected.row === 0) {
                     data = data[0]
                 } else {
@@ -104,6 +107,9 @@ useEffect(() => {
 
 
 
+    /**
+     *This function display the data into the main page
+     */
 
     const _showChart = () => {
 
